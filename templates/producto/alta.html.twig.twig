@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registrar Producto{% endblock %}
+
+{% block body %}
+    <h1>Registrar Producto</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.nombreProducto) }}
+    {{ form_row(form.precioVenta) }}
+    {{ form_row(form.precioAlquiler) }}
+    {{ form_row(form.tipo) }}
+    {{ form_row(form.estado) }}
+    <button class="btn">{{ form.vars.value.save }}</button>
+    {{ form_end(form) }}
+{% endblock %}

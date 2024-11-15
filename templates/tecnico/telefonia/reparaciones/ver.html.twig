@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalles de Reparación - Telefonía{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1>Detalles de Reparación</h1>
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title">Producto: {{ reparacion.idProducto.nombreProducto }}</h5>
+                <p class="card-text"><strong>Cliente:</strong> {{ reparacion.idUser.nombre }}</p>
+                <p class="card-text"><strong>Estado:</strong> {{ reparacion.estadoReparacion }}</p>
+                <p class="card-text"><strong>Fecha de Entrada:</strong> {{ reparacion.fechaEntrada|date("d/m/Y") }}</p>
+                <p class="card-text"><strong>Fecha de Salida:</strong> {{ reparacion.fechaSalida|date("d/m/Y") }}</p>
+                <p class="card-text"><strong>Descripción del Usuario:</strong> {{ reparacion.descripcionUsuario }}</p>
+                <p class="card-text"><strong>Nota del Técnico:</strong> {{ reparacion.notaTecnico }}</p>
+            </div>
+        </div>
+        <a href="{{ path('tecnico_reparaciones_index') }}" class="btn btn-secondary mt-3">Volver</a>
+    </div>
+{% endblock %}

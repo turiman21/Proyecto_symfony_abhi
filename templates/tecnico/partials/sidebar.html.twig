@@ -1,0 +1,13 @@
+<nav class="bg-dark p-3">
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link {% if active == 'resumen' %}active{% endif %}" href="{{ path('tecnico_consolas_dashboard') }}">Resumen</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if active == 'reparaciones' %}active{% endif %}" href="{{ path('tecnico_reparaciones_index') }}">Reparaciones</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if active == 'productos' %}active{% endif %}" href="{{ path('tecnico_consolas_dashboard') }}#productos">Productos</a>
+        </li>
+    </ul>
+</nav>

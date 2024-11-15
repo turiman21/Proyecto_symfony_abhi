@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nuevo Producto{% endblock %}
+
+{% block body %}
+    <h1>Crear nuevo Producto</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.nombre_producto) }}
+    {{ form_row(form.precio_venta) }}
+    {{ form_row(form.estado) }}
+    {{ form_row(form.precio_alquiler) }}
+    {{ form_row(form.tipo) }}
+    {{ form_row(form.imagenes) }}
+    {{ form_row(form.save) }}
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_producto_index') }}">Volver a la lista</a>
+{% endblock %}

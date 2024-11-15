@@ -1,0 +1,284 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panel de Administración{% endblock %}
+
+{% block body %}
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar p-0">
+                <div class="position-sticky sidebar-sticky">
+                    <div class="text-center py-4 bg-primary text-white">
+                        <h3>Administración</h3>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link text-white py-3" href="#" id="homeLink">
+                                <i class="fas fa-home me-2"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white py-3" href="#" id="gestionProductosLink">
+                                <i class="fas fa-box me-2"></i> Productos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white py-3" href="#" id="gestionUsuariosLink">
+                                <i class="fas fa-users me-2"></i> Usuarios
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white py-3" href="#" id="analisisVentasLink">
+                                <i class="fas fa-chart-line me-2"></i> Análisis de Ventas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white py-3" href="{{ path('app_sign_out') }}">
+                                <i class="fas fa-sign-out-alt me-2"></i> Cerrar Sesión
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                <!-- Home -->
+                <div id="home" class="content-section" style="display: block;">
+                    <h2 class="mb-4">Bienvenido al Panel de Administración</h2>
+                    <div class="row">
+                        <!-- Ejemplo de Estadísticas Generadas Aleatoriamente -->
+                        <div class="col-md-4">
+                            <div class="card bg-info text-white mb-3 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Ventas Totales</h5>
+                                    <p class="card-text display-6">{{ random(10, 20) }} €</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-warning text-white mb-3 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Alquileres Totales</h5>
+                                    <p class="card-text display-6">{{ random(5, 12) }} €</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-success text-white mb-3 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Clientes Activos</h5>
+                                    <p class="card-text display-6">{{ random(5, 40) }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Acceso a Departamentos -->
+                    <h3 class="mt-5">Departamentos</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="{{ path('tecnico_consolas_dashboard') }}" class="btn btn-primary btn-block p-3 w-100 mb-3">
+                                <i class="fas fa-gamepad"></i> Consolas
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="{{ path('tecnico_telefonia_dashboard') }}" class="btn btn-secondary btn-block p-3 w-100 mb-3">
+                                <i class="fas fa-mobile-alt"></i> Telefonía
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gestión de Productos -->
+                <div id="gestionProductos" class="content-section" style="display: none;">
+                    <h2 class="mb-4">Gestión de Productos</h2>
+                    <a href="{{ path('admin_nuevo_producto') }}" class="btn btn-success mb-3">
+                        <i class="fas fa-plus"></i> Agregar Producto
+                    </a>
+                    <input type="text" id="productSearch" class="form-control mb-3" placeholder="Buscar producto...">
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-light">
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody id="productTable">
+                            {% for producto in productos %}
+                                <tr>
+                                    <td>
+                                        {% if producto.imagen is defined and producto.imagen is not empty %}
+                                            <img src="{{ producto.imagen }}" alt="Imagen de {{ producto.nombreProducto }}" class="img-thumbnail" style="max-width: 80px;">
+                                        {% else %}
+                                            <img src="https://via.placeholder.com/80" alt="Sin Imagen" class="img-thumbnail">
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ producto.nombreProducto }}</td>
+                                    <td>{{ producto.precioVenta | number_format(2, ',', '.') }} €</td>
+                                    <td>{{ producto.stock is not null ? producto.stock : 'N/A' }}</td>
+                                    <td>{{ producto.estado }}</td>
+                                    <td>
+                                        <a href="{{ path('admin_editar_producto', {'id': producto.id}) }}" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </a>
+                                        <form action="{{ path('admin_eliminar_producto', {'id': producto.id}) }}" method="post" style="display:inline;">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ producto.id) }}">
+                                            <button type="submit" class="btn btn-danger btn-sm eliminar-producto">
+                                                <i class="fas fa-trash"></i> Eliminar
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted">No hay productos disponibles.</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button id="prevPage" class="btn btn-secondary" disabled>Anterior</button>
+                        <button id="nextPage" class="btn btn-secondary">Siguiente</button>
+                    </div>
+                </div>
+
+                <!-- Gestión de Usuarios -->
+                <div id="gestionUsuarios" class="content-section" style="display: none;">
+                    <h2 class="mb-4">Gestión de Usuarios</h2>
+                    <input type="text" id="userSearch" class="form-control mb-3" placeholder="Buscar usuario...">
+                    <select id="roleFilter" class="form-select mb-3">
+                        <option value="">Todos los roles</option>
+                        <option value="ROLE_ADMIN">Administrador</option>
+                        <option value="ROLE_USER">Usuario</option>
+                        <option value="ROLE_TELEPHONY_TECH">Departamento Telefonia</option>
+                        <option value="ROLE_CONSOLE_TECH">Departamento Consola</option>
+                    </select>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-light">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for usuario in usuarios %}
+                                <tr>
+                                    <td>{{ usuario.nombre }}</td>
+                                    <td>{{ usuario.email }}</td>
+                                    <td>{{ usuario.roles | join(', ') }}</td>
+                                    <td>
+                                        <a href="{{ path('admin_editar_usuario', {'id': usuario.id}) }}" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </a>
+                                        <form action="{{ path('admin_eliminar_usuario', {'id': usuario.id}) }}" method="post" style="display:inline;">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ usuario.id) }}">
+                                            <button type="submit" class="btn btn-danger btn-sm eliminar-usuario">
+                                                <i class="fas fa-trash"></i> Eliminar
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted">No hay usuarios disponibles.</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Análisis de Ventas -->
+                <div id="analisisVentas" class="content-section" style="display: none;">
+                    <h2 class="mb-4">Análisis de Ventas</h2>
+                    <canvas id="ventasChart" width="400" height="200"></canvas>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuLinks = {
+                homeLink: 'home',
+                gestionProductosLink: 'gestionProductos',
+                gestionUsuariosLink: 'gestionUsuarios',
+                analisisVentasLink: 'analisisVentas'
+            };
+
+            // Mostrar la sección seleccionada y ocultar las demás
+            function mostrarSeccion(seccionId) {
+                document.querySelectorAll('.content-section').forEach(section => section.style.display = 'none');
+                document.getElementById(seccionId).style.display = 'block';
+                localStorage.setItem('lastSection', seccionId);
+                refrescarMenu();
+            }
+
+            // Resaltar el menú activo
+            function refrescarMenu() {
+                Object.keys(menuLinks).forEach(linkId => {
+                    const link = document.getElementById(linkId);
+                    link.classList.remove('active');
+                    if (menuLinks[linkId] === localStorage.getItem('lastSection')) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            // Añadir evento de clic a cada enlace de menú
+            Object.keys(menuLinks).forEach(linkId => {
+                document.getElementById(linkId).addEventListener('click', function (e) {
+                    e.preventDefault();
+                    mostrarSeccion(menuLinks[linkId]);
+                });
+            });
+
+            // Mostrar la última sección seleccionada al cargar la página
+            mostrarSeccion(localStorage.getItem('lastSection') || 'home');
+
+            function displayVentasChart() {
+                const ctx = document.getElementById('ventasChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
+                        datasets: [{
+                            label: 'Ventas Mensuales (€)',
+                            data: [3000, 2500, 4000, 5000, 4500, 6000, 7000],
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+            }
+
+            displayVentasChart();
+        });
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous">
+    <style>
+        .sidebar .nav-link { font-size: 1.1em; }
+        .content-section h2 { color: #007bff; }
+        .active { background-color: #343a40 !important; }
+    </style>
+{% endblock %}

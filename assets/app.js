@@ -1,10 +1,11 @@
-import './bootstrap.js';
-/*
- * Welcome to your app's main JavaScript file!
- *
- * This file will be included onto the page via the importmap() Twig function,
- * which should already be in your base.html.twig.
- */
+// Archivo principal de JavaScript para la aplicación
+// Importación de estilos y scripts necesarios
+
+// Importa solo el archivo CSS principal si es necesario para el diseño básico
 import './styles/app.css';
 
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+// Importa Bootstrap solo si lo estás usando en toda la aplicación
+import './bootstrap.js';
+
+// Mensaje de confirmación de carga
+console.log('JavaScript principal cargado desde assets/app.js.');

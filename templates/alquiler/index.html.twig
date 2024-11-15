@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Alquiler index{% endblock %}
+
+{% block body %}
+    <h1>Alquiler index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Precio</th>
+                <th>Fecha_alquiler</th>
+                <th>Fecha_devolucion</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for alquiler in alquilers %}
+            <tr>
+                <td>{{ alquiler.id }}</td>
+                <td>{{ alquiler.precio }}</td>
+                <td>{{ alquiler.fechaAlquiler ? alquiler.fechaAlquiler|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ alquiler.fechaDevolucion ? alquiler.fechaDevolucion|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_alquiler_show', {'id': alquiler.id}) }}">show</a>
+                    <a href="{{ path('app_alquiler_edit', {'id': alquiler.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_alquiler_new') }}">Create new</a>
+{% endblock %}

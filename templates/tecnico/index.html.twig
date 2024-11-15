@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Panel Principal de Técnico</h1>
+    <p>Bienvenido al panel de técnicos. Selecciona una sección específica.</p>
+    <ul>
+        <li><a href="{{ path('tecnico_consolas') }}">Soporte Consolas</a></li>
+        <li><a href="{{ path('tecnico_telefonia') }}">Soporte Telefonía</a></li>
+        <li><a href="{{ path('tecnico_reparacion_form') }}">Formulario de Reparaciones</a></li>
+    </ul>
+{% endblock %}

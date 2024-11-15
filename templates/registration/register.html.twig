@@ -1,0 +1,169 @@
+{# templates/registration/register.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+
+        .register-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+
+        .form-label {
+            color: #666;
+            font-weight: bold;
+        }
+
+        .form-control {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .form-check-input {
+            margin-right: 5px;
+        }
+
+        .form-check-inline {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 15px; /* Agregar espacio adicional entre opciones */
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: #fff;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .mb-3 {
+            margin-bottom: 1.5em;
+            text-align: left;
+        }
+
+        .sign-in-link {
+            margin-top: 1em;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .sign-in-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .sign-in-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="register-container">
+        <h2>Registrarse</h2>
+
+        {{ form_start(registrationForm, {'attr': {'class': 'needs-validation', 'novalidate': ''}}) }}
+
+        <div class="mb-3">
+            {{ form_label(registrationForm.email, 'Correo electrónico', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Tu correo electrónico'}}) }}
+            {{ form_errors(registrationForm.email) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(registrationForm.nombre, 'Nombre', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.nombre, {'attr': {'class': 'form-control', 'placeholder': 'Tu nombre'}}) }}
+            {{ form_errors(registrationForm.nombre) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(registrationForm.apellido1, 'Primer Apellido', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.apellido1, {'attr': {'class': 'form-control', 'placeholder': 'Tu primer apellido'}}) }}
+            {{ form_errors(registrationForm.apellido1) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(registrationForm.apellido2, 'Segundo Apellido', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.apellido2, {'attr': {'class': 'form-control', 'placeholder': 'Tu segundo apellido'}}) }}
+            {{ form_errors(registrationForm.apellido2) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(registrationForm.direcccion, 'Dirección', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.direcccion, {'attr': {'class': 'form-control', 'placeholder': 'Tu dirección'}}) }}
+            {{ form_errors(registrationForm.direcccion) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(registrationForm.plainPassword, 'Contraseña', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Elige una contraseña segura'}}) }}
+            {{ form_errors(registrationForm.plainPassword) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(registrationForm.roles, 'Rol', {'label_attr': {'class': 'form-label'}}) }}
+            <div class="form-check d-flex justify-content-start">
+                {% for choice in registrationForm.roles %}
+                    <div class="form-check-inline">
+                        {{ form_widget(choice, {'attr': {'class': 'form-check-input'}}) }}
+                        {{ form_label(choice, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                    </div>
+                {% endfor %}
+            </div>
+            {{ form_errors(registrationForm.roles) }}
+        </div>
+
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary">Registrarse</button>
+        </div>
+
+        {{ form_end(registrationForm) }}
+
+        <div class="sign-in-link">
+            <p>¿Ya tienes cuenta? <a href="{{ path('app_sign_in') }}">Inicia sesión</a></p>
+        </div>
+    </div>
+{% endblock %}

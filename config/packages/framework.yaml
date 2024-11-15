@@ -1,13 +1,21 @@
-# see https://symfony.com/doc/current/reference/configuration/framework.html
+# config/packages/framework.yaml
 framework:
     secret: '%env(APP_SECRET)%'
-    #csrf_protection: true
+     #csrf_protection: true  # Activa CSRF Protection si estás trabajando con formularios
 
-    # Note that the session will be started ONLY if you read or write from it.
-    session: true
+    session:
+        enabled: true
+        handler_id: null  # Esto usa el manejo de sesión predeterminado
+        cookie_secure: auto  # Esto asegura que las cookies se envíen solo a través de HTTPS cuando el sitio esté en HTTPS
+        cookie_samesite: strict  # Esto añade protección para que las cookies no se envíen en solicitudes entre sitios
 
-    #esi: true
-    #fragments: true
+    trusted_proxies: '127.0.0.1,REMOTE_ADDR'  # Convertido a cadena
+    trusted_hosts: 'adiapp.duckdns.org'  # Establece tu dominio como host de confianza
+
+    # esi: true  # Activa esto si usas Edge Side Includes
+    # fragments: true  # Activa esto si usas fragmentos de página
+
+    http_method_override: true  # Permite el uso de métodos como PATCH, DELETE
 
 when@test:
     framework:

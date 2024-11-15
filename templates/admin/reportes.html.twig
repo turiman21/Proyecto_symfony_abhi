@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h2>{{ titulo }}</h2>
+        <form method="post">
+            <!-- Formulario de ejemplo para opciones de configuración -->
+            <div class="mb-3">
+                <label for="configOption1" class="form-label">Opción de Configuración 1</label>
+                <input type="text" id="configOption1" name="configOption1" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="configOption2" class="form-label">Opción de Configuración 2</label>
+                <select id="configOption2" name="configOption2" class="form-select">
+                    <option value="opcion1">Opción 1</option>
+                    <option value="opcion2">Opción 2</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+    </div>
+{% endblock %}

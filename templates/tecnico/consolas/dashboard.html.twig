@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panel de Consolas - Técnico{% endblock %}
+
+{% block body %}
+    {% include 'tecnico/partials/header.html.twig' %}
+    <div class="container-fluid mt-5">
+        <div class="row">
+            {% include 'tecnico/partials/sidebar.html.twig' %}
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                <h2 class="mb-4">Resumen de Consolas</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card bg-danger text-white mb-3 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Reparaciones Pendientes</h5>
+                                <p class="card-text display-4">{{ reparacionesPendientes }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-success text-white mb-3 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Reparaciones Completadas</h5>
+                                <p class="card-text display-4">{{ reparacionesCompletadas }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-warning text-white mb-3 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Consolas Disponibles</h5>
+                                <p class="card-text display-4">{{ consolasDisponibles }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+{% endblock %}

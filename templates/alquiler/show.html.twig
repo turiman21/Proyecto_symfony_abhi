@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Alquiler{% endblock %}
+
+{% block body %}
+    <h1>Alquiler</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ alquiler.id }}</td>
+            </tr>
+            <tr>
+                <th>Precio</th>
+                <td>{{ alquiler.precio }}</td>
+            </tr>
+            <tr>
+                <th>Fecha_alquiler</th>
+                <td>{{ alquiler.fechaAlquiler ? alquiler.fechaAlquiler|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fecha_devolucion</th>
+                <td>{{ alquiler.fechaDevolucion ? alquiler.fechaDevolucion|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_alquiler_index') }}">back to list</a>
+
+    <a href="{{ path('app_alquiler_edit', {'id': alquiler.id}) }}">edit</a>
+
+    {{ include('alquiler/_delete_form.html.twig') }}
+{% endblock %}

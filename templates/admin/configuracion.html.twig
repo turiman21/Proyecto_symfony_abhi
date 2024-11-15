@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h2>{{ titulo }}</h2>
+        <p>Aquí podrás ver y generar reportes detallados sobre el uso de la aplicación, ventas, y otros aspectos relevantes.</p>
+        <!-- Ejemplo de reporte -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Reporte de Ventas</h4>
+            </div>
+            <div class="card-body">
+                <p>Datos de ejemplo para el reporte de ventas...</p>
+                <!-- Aquí puedes agregar tablas, gráficos u otros elementos interactivos -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
